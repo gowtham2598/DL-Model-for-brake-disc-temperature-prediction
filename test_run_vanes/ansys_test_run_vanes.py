@@ -10,6 +10,8 @@ This is the final, correct implementation for our test run.
 import os
 import numpy as np
 from ansys.mapdl.core import launch_mapdl
+import csv
+from datetime import datetime
 
 # --- 1. Setup Simulation Environment ---
 print("--- Setting up Simulation Environment ---")
@@ -178,6 +180,19 @@ mapdl.finish()
 mapdl.post1()
 print(f"Loading result at time = {braking_time} seconds...")
 mapdl.set(time=braking_time)
+#Extracting peak temperature
+try:
+    # 1. Sort the nodes by temperature, with the highest value first.
+    mapdl.run('NSORT,TEMP,,1') 
+    
+    # 2. Get the maximum value from the 'SORT' results.
+    #    The keyword is 'SORT', not 'NSORT'. This is the fix.
+    peak_temperature = mapdl.get_value('SORT', item1='MAX')
+    
+    print(f"Successfully extracted peak temperature: {peak_temperature:.2f}°C")
+except Exception as e:
+    print(f"Could not extract peak temperature. Final error: {e}")
+    peak_temperature = float('nan')
 
 # Save the output temperature image to the MAIN project folder
 png_path_temp = os.path.join(main_project_dir, 'output_temperature_vaned.png')
@@ -191,7 +206,51 @@ try:
 except Exception as e:
     print(f"Could not save temperature plot. Error: {e}")
 
+# --- 7. Save Numerical Data to CSV ---
+print("\n--- Saving Numerical Data ---")
 
-# --- 7. Finish ---
+# Define the path for your log file
+csv_file_path = os.path.join(main_project_dir, 'simulation_log.csv')
+
+#Defineing the timestamp for the run
+timestamp_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+# Define the header for your CSV file
+csv_header = [
+    'run_id', 'timestamp', 'status', 'input_image', 'output_image',
+    'vane_count', 'vane_thickness_deg', 'heat_flux', 'peak_temperature'
+]
+
+# Collect all the data for the current run into a dictionary
+run_data = {
+    'run_id': 0,  # For this single test run, we'll just use ID 0
+    'timestamp': timestamp_str,
+    'status': 'success' if peak_temperature > ambient_temp else 'failed',
+    'input_image': 'input_geometry_vaned.png',
+    'output_image': 'output_temperature_vaned.png',
+    'vane_count': vane_count,
+    'vane_thickness_deg': vane_thickness_deg,
+    'heat_flux': heat_flux,
+    'peak_temperature': round(peak_temperature, 2)
+}
+
+try:
+    # Check if the file already exists to avoid writing the header multiple times
+    file_exists = os.path.isfile(csv_file_path)
+
+    # Open the file in 'append' mode ('a')
+    with open(csv_file_path, 'a', newline='') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=csv_header)
+        if not file_exists:
+            writer.writeheader()  # Write the header if the file is new
+        writer.writerow(run_data) # Write the data for this run
+
+    print(f"Successfully saved data to {csv_file_path}")
+
+except Exception as e:
+    print(f"Error saving data to CSV: {e}")
+
+
+# --- 8. Finish ---
 mapdl.exit()
 print("Script finished.")

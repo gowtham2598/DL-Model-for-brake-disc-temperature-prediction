@@ -22,5 +22,6 @@ test_run_vanes/*
 # 3. ...EXCEPT for the Python scripts and PNG images inside it.
 !test_run_vanes/*.py
 !test_run_vanes/*.png
+!test_run_vanes/*.csv
 
 # Ignore the In
