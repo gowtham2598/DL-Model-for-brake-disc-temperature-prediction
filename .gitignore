@@ -10,20 +10,17 @@ __pycache__/
 *.out
 *.lock
 
-# Ignore the contents of test run folders...
+# --- Test Run Folders ---
+
+# 1. Ignore the entire contents of these folders
 test_run_cooling/*
 test_run_simple/*
+
+# 2. For the 'test_run_vanes' folder, ignore everything...
 test_run_vanes/*
 
-# BUT, do NOT ignore the Python scripts inside them.
-#!test_run_cooling/*.py
-#!test_run_simple/*.py
+# 3. ...EXCEPT for the Python scripts and PNG images inside it.
 !test_run_vanes/*.py
 !test_run_vanes/*.png
 
-# A general pattern for future test run folders
-test_run_*/*
-#!test_run_*/*.py
-
-# Ignore the Input file folder if it contains large data files
-Input file/
+# Ignore the In
