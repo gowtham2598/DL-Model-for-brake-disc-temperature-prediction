@@ -16,13 +16,13 @@ test_run_simple/*
 test_run_vanes/*
 
 # BUT, do NOT ignore the Python scripts inside them.
-!test_run_cooling/*.py
-!test_run_simple/*.py
+#!test_run_cooling/*.py
+#!test_run_simple/*.py
 !test_run_vanes/*.py
 
 # A general pattern for future test run folders
 test_run_*/*
-!test_run_*/*.py
+#!test_run_*/*.py
 
 # Ignore the Input file folder if it contains large data files
 Input file/
