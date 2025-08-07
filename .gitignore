@@ -19,6 +19,7 @@ test_run_vanes/*
 #!test_run_cooling/*.py
 #!test_run_simple/*.py
 !test_run_vanes/*.py
+!test_run_vanes/*.png
 
 # A general pattern for future test run folders
 test_run_*/*
