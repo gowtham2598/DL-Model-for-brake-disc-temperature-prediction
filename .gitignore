@@ -1,27 +1,63 @@
-# Python virtual environment and cache
+# --- Python environment and cache ---
 venv/
 __pycache__/
+*.pyc
+*.pyo
 
-# ANSYS simulation files
+
+# --- Ignore all files by default ---
+*
+
+
+# --- But explicitly include these types of files ---
+!*/
+!*.py
+!*.ipynb
+!*.md
+!*.txt
+!*.csv
+!*.json
+!*.yaml
+!*.yml
+!*.ini
+!*.cfg
+!*.toml
+!*.png
+!*.jpg
+!*.jpeg
+!*.gif
+!*.svg
+!*.pdf
+!*.dat
+
+
+# --- Ignore ANSYS / Simulation files ---
 *.db
 *.rst
+*.rth
 *.log
 *.err
 *.out
 *.lock
+*.dsp
+*.dbb
+*.cnd
+*.stl
+*.fem
+*.bdf
+*.nas
+*.op2
 
-# --- Test Run Folders ---
 
-# 1. Ignore the entire contents of these folders
-test_run_cooling/*
-test_run_simple/*
+# --- Ignore temporary or run directories ---
+test_run_cooling/
+test_run_simple/
+temp/
+backup/
+results/
+outputs/
 
-# 2. For the 'test_run_vanes' folder, sync everything
-!test_run_vanes/
 
-# 3. ...EXCEPT for the Python scripts and PNG images inside it.
-#!test_run_vanes/*.py
-#!test_run_vanes/*.png
-#!test_run_vanes/*.csv
-
-# Ignore the In
+# --- Allow version control metadata and docs ---
+!.gitignore
+!README.md
