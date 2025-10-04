@@ -1,4 +1,0 @@
-run_id,timestamp,status,input_image,output_image,vane_count,vane_thickness_deg,heat_flux,peak_temperature
-0,08-08-2025 01:13,success,input_geometry_vaned.png,output_temperature_vaned.png,48,2,2500000,453.93
-0,08-08-2025 01:14,success,input_geometry_vaned.png,output_temperature_vaned.png,48,2,2500000,453.93
-0,2025-10-04 00:01:38,success,input_geometry_vaned.png,output_temperature_vaned.png,48,2.0,2500000.0,453.93
