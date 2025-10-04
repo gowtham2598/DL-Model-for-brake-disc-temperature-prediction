@@ -16,12 +16,12 @@ __pycache__/
 test_run_cooling/*
 test_run_simple/*
 
-# 2. For the 'test_run_vanes' folder, ignore everything...
-test_run_vanes/*
+# 2. For the 'test_run_vanes' folder, sync everything
+!test_run_vanes/
 
 # 3. ...EXCEPT for the Python scripts and PNG images inside it.
-!test_run_vanes/*.py
-!test_run_vanes/*.png
-!test_run_vanes/*.csv
+#!test_run_vanes/*.py
+#!test_run_vanes/*.png
+#!test_run_vanes/*.csv
 
 # Ignore the In
